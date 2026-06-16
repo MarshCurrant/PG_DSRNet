@@ -2,8 +2,8 @@
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-ERRNET_PY="${ERRNET_PY:-/home/nebula/.conda/envs/dip-errnet/bin/python}"
-DSRNET_PY="${DSRNET_PY:-/home/nebula/.conda/envs/dip-dsrnet/bin/python}"
+ERRNET_PY="${ERRNET_PY:-python}"
+DSRNET_PY="${DSRNET_PY:-python}"
 
 DATA_DIR="${DATA_DIR:-$ROOT/data/custom_synth}"
 OUT_DIR="${OUT_DIR:-$ROOT/outputs/benchmarks/custom_synth}"

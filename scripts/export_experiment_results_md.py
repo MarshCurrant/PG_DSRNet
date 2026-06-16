@@ -482,7 +482,7 @@ def main() -> None:
     parser.add_argument(
         "--output",
         type=Path,
-        default=Path("paper/experiment_results.md"),
+        default=Path("docs/EXPERIMENT_RESULTS.md"),
         help="Markdown output path, relative to --root unless absolute.",
     )
     args = parser.parse_args()

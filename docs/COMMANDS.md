@@ -1,220 +1,231 @@
-# Reproduction Commands
+# Commands
 
-All commands assume:
+All commands assume they are executed from the repository root.
+
+For commands that call both ERRNet and DSRNet, set the Python executables explicitly if you use separate environments:
 
 ```bash
-cd /home/nebula/qqm/DIP
+export ERRNET_PY=/path/to/dip-errnet/bin/python
+export DSRNET_PY=/path/to/dip-dsrnet/bin/python
+export TORCH_HOME=weights/torch
+export MPLCONFIGDIR=/tmp/matplotlib
 ```
 
-## ERRNet Baseline
+If the current shell already activates the correct environment, `ERRNET_PY=python` or `DSRNET_PY=python` is enough.
 
-Prepare data:
+## ERRNet
+
+Prepare ERRNet data:
 
 ```bash
+conda activate dip-errnet
 cd repos/ERRNet
-MPLCONFIGDIR=/tmp/matplotlib /home/nebula/.conda/envs/dip-errnet/bin/python datasets/prepare_train_data.py
-MPLCONFIGDIR=/tmp/matplotlib /home/nebula/.conda/envs/dip-errnet/bin/python datasets/prepare_test_data.py
+python datasets/prepare_train_data.py
+python datasets/prepare_test_data.py
+cd ../..
 ```
 
-Evaluate official checkpoint with the ERRNet native protocol:
+Evaluate an ERRNet checkpoint with the native ERRNet script:
 
 ```bash
+conda activate dip-errnet
 cd repos/ERRNet
-for d in ceilnet_table2 real20 objects postcard wild; do
-  TORCH_HOME=/home/nebula/qqm/DIP/weights/torch MPLCONFIGDIR=/tmp/matplotlib /home/nebula/.conda/envs/dip-errnet/bin/python test_errnet.py \
-    --name errnet --dataset "$d" -r --hyper \
-    --icnn_path checkpoints/errnet/errnet_060_00463920.pt \
-    --result_dir ../../outputs/benchmarks/errnet_native \
-    --save_subdir "$d"
-done
+python test_errnet.py \
+  --name errnet \
+  --dataset real20 \
+  -r \
+  --hyper \
+  --icnn_path checkpoints/errnet_unaligned_ft/errnet_latest.pt \
+  --result_dir ../../outputs/benchmarks/errnet_native \
+  --save_subdir real20
+cd ../..
 ```
 
-Train aligned baseline:
+Train the aligned stage:
 
 ```bash
+conda activate dip-errnet
 cd repos/ERRNet
-TORCH_HOME=/home/nebula/qqm/DIP/weights/torch MPLCONFIGDIR=/tmp/matplotlib /home/nebula/.conda/envs/dip-errnet/bin/python train_errnet.py \
-  --name errnet_train --hyper
+python train_errnet.py \
+  --name errnet_train \
+  --hyper
+cd ../..
 ```
 
-Fine-tune unaligned stage:
+Fine-tune on unaligned real pairs:
 
 ```bash
+conda activate dip-errnet
 cd repos/ERRNet
-TORCH_HOME=/home/nebula/qqm/DIP/weights/torch MPLCONFIGDIR=/tmp/matplotlib /home/nebula/.conda/envs/dip-errnet/bin/python train_errnet_unaligned.py \
-  --name errnet_unaligned_ft --hyper -r \
-  --icnn_path checkpoints/errnet/errnet_060_00463920.pt \
+python train_errnet_unaligned.py \
+  --name errnet_unaligned_ft \
+  --hyper \
+  -r \
+  --icnn_path checkpoints/errnet_train/errnet_train_latest.pt \
   --unaligned_loss vgg
+cd ../..
 ```
 
-Run the long training queue used for self-trained model artifacts:
+## DSRNet
+
+Prepare the DSRNet bridge layout from the ERRNet processed data:
 
 ```bash
-cd /home/nebula/qqm/DIP
-bash scripts/run_training_queue.sh
+conda activate dip-dsrnet
+python scripts/prepare_dsrnet_from_errnet.py --force
 ```
 
-The queue runs ERRNet aligned training, ERRNet unaligned fine-tuning, DSRNet-L
-Setting I training, then self-trained unified benchmarks. Logs are written to
-`logs/training/`. To skip the optional ERRNet unaligned fine-tuning, run with
-`RUN_ERRNET_UNALIGNED=0 bash scripts/run_training_queue.sh`.
-
-## DSRNet Improved Method
-
-Use the official all-in-one data package for paper reproduction:
-
-```text
-data/processed/dsrnet_official_extract/reflection-removal/
-```
-
-The bridge below is still useful for unified wrapper comparisons, but do not use
-it as the DSRNet paper-protocol `real20_420` source:
+Train DSRNet-L Setting I:
 
 ```bash
-/home/nebula/.conda/envs/dip-dsrnet/bin/python scripts/prepare_dsrnet_from_errnet.py --force
-```
-
-Evaluate DSRNet-L epoch18 with the DSRNet native protocol:
-
-```bash
+conda activate dip-dsrnet
 cd repos/DSRNet
-TORCH_HOME=/home/nebula/qqm/DIP/weights/torch MPLCONFIGDIR=/tmp/matplotlib /home/nebula/.conda/envs/dip-dsrnet/bin/python eval_sirs.py \
-  --inet dsrnet_l --model dsrnet_model_sirs --dataset sirs_dataset \
-  --name dsrnet_l_epoch18_official_data_eval --if_align --resume \
-  --weight_path /home/nebula/qqm/DIP/repos/DSRNet/weights/dsrnet_l_epoch18.pt \
-  --base_dir /home/nebula/qqm/DIP/data/processed/dsrnet_official_extract/reflection-removal \
-  --nThreads 2
-```
-
-Score saved official outputs with the same bandwise metric convention:
-
-```bash
-cd /home/nebula/qqm/DIP
-/home/nebula/.conda/envs/dip-errnet/bin/python scripts/score_dsrnet_native_outputs.py \
-  --run_dir repos/DSRNet/checkpoints/dsrnet_l_epoch18_official_data_eval/20260612-145852 \
-  --out_csv outputs/benchmarks/dsrnet_l_epoch18_official_data_eval/dsrnet_native_metrics.csv \
-  --summary_csv outputs/benchmarks/dsrnet_l_epoch18_official_data_eval/dsrnet_native_summary.csv \
-  --summary_json outputs/benchmarks/dsrnet_l_epoch18_official_data_eval/dsrnet_native_summary.json
-```
-
-Train Setting I:
-
-```bash
-cd repos/DSRNet
-TORCH_HOME=/home/nebula/qqm/DIP/weights/torch MPLCONFIGDIR=/tmp/matplotlib /home/nebula/.conda/envs/dip-dsrnet/bin/python train_sirs.py \
-  --inet dsrnet_l --model dsrnet_model_sirs --dataset sirs_dataset --loss losses \
-  --name dsrnet_l_train_setting_i --lambda_vgg 0.01 --lambda_rec 0.2 \
-  --if_align --seed 2018 \
-  --base_dir /home/nebula/qqm/DIP/data/processed/dsrnet_official_extract/reflection-removal \
+python train_sirs.py \
+  --inet dsrnet_l \
+  --model dsrnet_model_sirs \
+  --dataset sirs_dataset \
+  --loss losses \
+  --name dsrnet_l_train_setting_i \
+  --lambda_vgg 0.01 \
+  --lambda_rec 0.2 \
+  --if_align \
+  --seed 2018 \
+  --base_dir ../../data/processed/dsrnet_official_extract/reflection-removal \
   --nThreads 8
+cd ../..
 ```
 
-Use `--nThreads` to control DSRNet training and validation DataLoader workers.
+Evaluate a DSRNet-L checkpoint with the native DSRNet script:
+
+```bash
+conda activate dip-dsrnet
+cd repos/DSRNet
+python eval_sirs.py \
+  --inet dsrnet_l \
+  --model dsrnet_model_sirs \
+  --dataset sirs_dataset \
+  --name dsrnet_l_eval \
+  --if_align \
+  --resume \
+  --weight_path weights/dsrnet_l_epoch18.pt \
+  --base_dir ../../data/processed/dsrnet_official_extract/reflection-removal \
+  --nThreads 2
+cd ../..
+```
+
+## PG-DSRNet Ablation
+
+Run the full PG-DSRNet fine-tuning queue:
+
+```bash
+ERRNET_PY=/path/to/dip-errnet/bin/python \
+DSRNET_PY=/path/to/dip-dsrnet/bin/python \
+bash scripts/run_pg_dsrnet_experiment.sh
+```
+
+Useful environment overrides:
+
+```bash
+PG_BASE_CKPT=repos/DSRNet/checkpoints/dsrnet_l_train_setting_i/weights/20260613-042722/dsrnet_l_train_setting_i_latest.pt
+PG_BASE_DIR=data/processed/dsrnet_official_extract/reflection-removal
+PG_LR=5e-5
+RUN_FREQ=1
+RUN_PRIOR=1
+RUN_FREQ_PRIOR=1
+NTHREADS=8
+WANDB_MODE=online
+```
 
 ## Unified Inference
 
-ERRNet custom folder:
+ERRNet on a custom folder:
 
 ```bash
-/home/nebula/.conda/envs/dip-errnet/bin/python scripts/infer_method.py \
+conda activate dip-errnet
+python scripts/infer_method.py \
   --method errnet \
-  --checkpoint repos/ERRNet/checkpoints/errnet/errnet_060_00463920.pt \
-  --input_dir data/custom/reflection \
-  --output_dir outputs/errnet/custom
+  --checkpoint repos/ERRNet/checkpoints/errnet_unaligned_ft/errnet_latest.pt \
+  --input_dir data/my_images \
+  --output_dir outputs/user/errnet
 ```
 
-DSRNet custom folder:
+DSRNet or PG-DSRNet on a custom folder:
 
 ```bash
-/home/nebula/.conda/envs/dip-dsrnet/bin/python scripts/infer_method.py \
+conda activate dip-dsrnet
+python scripts/infer_method.py \
   --method dsrnet \
-  --checkpoint repos/DSRNet/weights/dsrnet_l_epoch18.pt \
   --inet dsrnet_l \
-  --input_dir data/custom/reflection \
-  --output_dir outputs/dsrnet/custom
-```
-
-For high-resolution folders that may exceed GPU memory, add a bounded long edge and evaluate
-against a resized reference:
-
-```bash
-/home/nebula/.conda/envs/dip-dsrnet/bin/python scripts/infer_method.py \
-  --method dsrnet \
-  --checkpoint repos/DSRNet/weights/dsrnet_l_epoch18.pt \
-  --inet dsrnet_l \
-  --input_dir repos/ERRNet/datasets/processed_data/real20/blended \
-  --output_dir outputs/dsrnet/real20 \
-  --max_long_edge 512
+  --checkpoint repos/DSRNet/checkpoints/pg_dsrnet_l_freq_prior_ft/weights/20260616-020451/pg_dsrnet_l_freq_prior_ft_latest.pt \
+  --input_dir data/my_images \
+  --output_dir outputs/user/pg_dsrnet \
+  --max_long_edge 1024
 ```
 
 ## Unified Metrics
 
-Example:
-
 ```bash
-/home/nebula/.conda/envs/dip-errnet/bin/python scripts/eval_sirr.py \
-  --pred_dir outputs/errnet/CEILNet_table2 \
-  --gt_dir repos/ERRNet/datasets/processed_data/testdata_CEILNET_table2 \
-  --out_csv outputs/errnet/metrics_ceilnet_table2.csv \
-  --summary_json outputs/errnet/metrics_ceilnet_table2.json
+conda activate dip-errnet
+python scripts/eval_sirr.py \
+  --pred_dir outputs/user/pg_dsrnet \
+  --gt_dir data/my_eval/transmission_layer \
+  --out_csv outputs/user/pg_dsrnet_metrics.csv \
+  --summary_json outputs/user/pg_dsrnet_metrics.json \
+  --align crop-min \
+  --fail_on_missing
 ```
 
-For DSRNet:
+## Unified Benchmark Suite
+
+Run official or self-trained checkpoints on CEILNet table2, real20, and SIR2:
 
 ```bash
-/home/nebula/.conda/envs/dip-dsrnet/bin/python scripts/eval_sirr.py \
-  --pred_dir outputs/dsrnet/real20 \
-  --gt_dir repos/ERRNet/datasets/processed_data/real20 \
-  --out_csv outputs/dsrnet/metrics_real20.csv \
-  --summary_json outputs/dsrnet/metrics_real20.json
-```
-
-## Unified Official-Checkpoint Benchmark
-
-Run inference and metrics for ERRNet and DSRNet on CEILNet table2, real20, and SIR2
-Objects/Postcard/Wild:
-
-```bash
-cd /home/nebula/qqm/DIP
-/home/nebula/.conda/envs/dip-errnet/bin/python scripts/run_benchmark_suite.py \
+ERRNET_PY=/path/to/dip-errnet/bin/python \
+DSRNET_PY=/path/to/dip-dsrnet/bin/python \
+python scripts/run_benchmark_suite.py \
   --methods errnet,dsrnet \
   --datasets ceilnet_table2,real20,objects,postcard,wild \
-  --dsrnet_checkpoint repos/DSRNet/weights/dsrnet_l_epoch18.pt \
+  --errnet_checkpoint repos/ERRNet/checkpoints/errnet_unaligned_ft/errnet_latest.pt \
+  --dsrnet_checkpoint repos/DSRNet/checkpoints/pg_dsrnet_l_freq_prior_ft/weights/20260616-020451/pg_dsrnet_l_freq_prior_ft_latest.pt \
   --dsrnet_inet dsrnet_l \
+  --output_root outputs/benchmarks/my_run \
   --nThreads 2
 ```
 
 Recompute metrics from existing predictions only:
 
 ```bash
-cd /home/nebula/qqm/DIP
-/home/nebula/.conda/envs/dip-errnet/bin/python scripts/run_benchmark_suite.py \
+python scripts/run_benchmark_suite.py \
   --methods errnet,dsrnet \
   --datasets ceilnet_table2,real20,objects,postcard,wild \
-  --dsrnet_checkpoint repos/DSRNet/weights/dsrnet_l_epoch18.pt \
-  --dsrnet_inet dsrnet_l \
-  --nThreads 2 \
+  --output_root outputs/benchmarks/my_run \
   --skip_infer
 ```
 
-Outputs are written under:
+## Self-Collected Synthetic Reflection
 
-```text
-outputs/benchmarks/official/
-  summary.csv
-  summary.json
-  errnet/<dataset>/predictions/
-  errnet/<dataset>/metrics.csv
-  dsrnet/<dataset>/predictions/
-  dsrnet/<dataset>/metrics.csv
+Generate synthetic reflection inputs from clean images:
+
+```bash
+conda activate dip-errnet
+python scripts/synthesize_self_reflection.py \
+  --clean-dir self \
+  --output-dir data/custom_synth \
+  --seed 2018 \
+  --max-long-edge 1024
 ```
 
-The runner uses `--align auto`: DSRNet metrics use `resize-gt`, ERRNet real20 uses
-`resize-gt`, and the remaining ERRNet sets use `crop-min`. Both methods use a
-512-pixel long-edge cap on real20 to avoid full-resolution GPU memory spikes.
+Run the full self-synth benchmark:
 
-The DSRNet-L epoch18 unified run used for the current report is under:
+```bash
+ERRNET_PY=/path/to/dip-errnet/bin/python \
+DSRNET_PY=/path/to/dip-dsrnet/bin/python \
+bash scripts/run_custom_synth_benchmark.sh
+```
 
-```text
-outputs/benchmarks/unified_dsrnet_l_epoch18/
+## Result Export
+
+```bash
+python scripts/export_experiment_results_md.py
+python scripts/make_paper_figures.py --output-dir outputs/figures
 ```

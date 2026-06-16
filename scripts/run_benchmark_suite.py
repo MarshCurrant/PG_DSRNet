@@ -14,8 +14,8 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 ENV_PYTHONS = {
-    "errnet": Path("/home/nebula/.conda/envs/dip-errnet/bin/python"),
-    "dsrnet": Path("/home/nebula/.conda/envs/dip-dsrnet/bin/python"),
+    "errnet": Path(os.environ.get("ERRNET_PY", "python")),
+    "dsrnet": Path(os.environ.get("DSRNET_PY", "python")),
 }
 
 DATASETS = {

@@ -10,6 +10,12 @@ __pycache__/
 env/
 venv/
 .cache/
+repos/**/.git/
+repos/**/.git.disabled/
+repos/**/__pycache__/
+repos/**/wandb/
+repos/**/~/
+repos/**/README_DIP26.md
 
 # Model weights and checkpoints
 *.pt
@@ -24,6 +30,7 @@ repos/**/weights/
 data/raw/
 data/processed/
 data/custom_synth/
+self/
 repos/**/datasets/raw_data/
 repos/**/datasets/processed_data/
 
@@ -37,6 +44,13 @@ outputs/benchmarks/**/predictions/
 outputs/benchmarks/**/*_outputs/
 
 # Keep benchmark summaries and paper figures; ignore heavy transient media by path above.
+
+# Local reports, templates, survey drafts, and third-party reference clones
+paper/
+paper_template/
+slides/
+survey/
+repos/reference/
 
 # LaTeX build products
 *.aux

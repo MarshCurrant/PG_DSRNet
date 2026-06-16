@@ -1,35 +1,32 @@
-# PG-DSRNet: Single Image Reflection Removal
+# PG-DSRNet
 
-[GitHub Repository](https://github.com/MarshCurrant/PG_DSRNet)
+PG-DSRNet 是一个用于单张图像反射去除（Single Image Reflection Removal, SIRR）的开源实验代码库。仓库包含 ERRNet 基线、DSRNet-L 复现代码，以及在 DSRNet-L 上加入轻量频率先验和反射强度先验训练损失的 PG-DSRNet-L。
 
-PG-DSRNet is a course project for single image reflection removal. It reproduces the ERRNet baseline, compares it with DSRNet-L, and adds a lightweight prior-guided fine-tuning variant named PG-DSRNet-L.
+仓库目标是让使用者能够：
 
-The project includes:
+- 对自己的反光图像运行 ERRNet / DSRNet / PG-DSRNet 推理；
+- 在成对数据上计算 PSNR、SSIM、NCC、LMSE；
+- 复现实验汇总表和自采 clean 图像的合成反光评测；
+- 查看最终权重说明和实验结果摘要。
 
-- unified inference wrappers for ERRNet and DSRNet-style models
-- benchmark evaluation with PSNR, SSIM, NCC, and LMSE
-- self-collected clean-image reflection synthesis
-- result aggregation scripts and paper figures
-- CVPR-style paper source
-
-## Repository Layout
+## 目录结构
 
 ```text
-repos/ERRNet/                 # ERRNet baseline code
-repos/DSRNet/                 # DSRNet and PG-DSRNet code
-scripts/                      # inference, evaluation, synthesis, plotting
-docs/                         # dataset, command, and weight notes
-paper/experiment_results.md   # aggregated experiment tables
-paper/cvpr2026_pg_dsrnet/     # paper source and figures
-survey/                       # literature survey notes
-self/                         # five clean self-collected images
+repos/ERRNet/                 # ERRNet 基线代码
+repos/DSRNet/                 # DSRNet 与 PG-DSRNet 代码
+scripts/                      # 推理、评测、数据合成、实验汇总脚本
+docs/                         # 数据、环境、命令、权重和结果说明
+outputs/benchmarks/           # 指标汇总文件；大规模预测图默认不提交
+data/                         # 数据目录；原始数据和生成数据默认不提交
 ```
 
-## 1. Install Environments
+论文成稿、课程汇报模板、调研草稿和个人图片不属于开源代码主体，默认不纳入 Git 提交。
 
-The project uses two Python environments because ERRNet and DSRNet have different dependencies.
+## 1. 环境安装
 
-ERRNet environment:
+建议分别创建 ERRNet 和 DSRNet 环境，因为两个项目依赖版本不同。
+
+ERRNet 环境：
 
 ```bash
 conda create -n dip-errnet python=3.10 -y
@@ -37,7 +34,7 @@ conda activate dip-errnet
 pip install -r repos/ERRNet/requirements.txt
 ```
 
-DSRNet environment:
+DSRNet 环境：
 
 ```bash
 conda create -n dip-dsrnet python=3.9 -y
@@ -45,29 +42,29 @@ conda activate dip-dsrnet
 pip install -r repos/DSRNet/requirements.txt
 ```
 
-Install a PyTorch build matching your CUDA version if the requirements do not match your machine.
+如果 requirements 中的 PyTorch 版本不适合你的 CUDA，请按机器环境单独安装匹配版本的 PyTorch。
 
-## 2. Download Weights
+## 2. 下载权重
 
-Weights are not stored in Git. Download the shared weight package:
+模型权重不存入 Git。请下载共享权重包：
 
-- Baidu Netdisk file: `DIP`
-- Link: https://pan.baidu.com/s/151h3CPe1i1OpOMrLGYMfKA?pwd=1234
-- Extraction code: `1234`
+- 文件名：`DIP`
+- 链接：https://pan.baidu.com/s/151h3CPe1i1OpOMrLGYMfKA?pwd=1234
+- 提取码：`1234`
 
-Recommended final weights:
+推荐放置路径如下：
 
-| Model | Expected path |
+| 模型 | 推荐路径 |
 | --- | --- |
 | ERRNet self-trained | `repos/ERRNet/checkpoints/errnet_unaligned_ft/errnet_latest.pt` |
 | DSRNet-L self-trained | `repos/DSRNet/checkpoints/dsrnet_l_train_setting_i/weights/20260613-042722/dsrnet_l_train_setting_i_latest.pt` |
 | PG-DSRNet-L freq+prior | `repos/DSRNet/checkpoints/pg_dsrnet_l_freq_prior_ft/weights/20260616-020451/pg_dsrnet_l_freq_prior_ft_latest.pt` |
 
-See `docs/WEIGHTS.md` for file sizes and SHA256 checksums.
+文件大小和 SHA256 校验值见 [docs/WEIGHTS.md](docs/WEIGHTS.md)。
 
-## 3. Run Inference on Your Own Images
+## 3. 对自己的图片运行推理
 
-Put reflection-contaminated input images in a folder, for example:
+把待处理图片放入任意目录，例如：
 
 ```text
 data/my_images/
@@ -75,7 +72,7 @@ data/my_images/
   image_002.jpg
 ```
 
-Run ERRNet:
+运行 ERRNet：
 
 ```bash
 conda activate dip-errnet
@@ -86,7 +83,7 @@ python scripts/infer_method.py \
   --output_dir outputs/user/errnet
 ```
 
-Run PG-DSRNet-L:
+运行 PG-DSRNet-L：
 
 ```bash
 conda activate dip-dsrnet
@@ -98,11 +95,11 @@ python scripts/infer_method.py \
   --output_dir outputs/user/pg_dsrnet
 ```
 
-If your images are very large, add `--max_long_edge 1024` to reduce memory usage.
+如果输入图像分辨率较大，可以加入 `--max_long_edge 1024` 限制最长边，降低显存占用。
 
-## 4. Evaluate Paired Results
+## 4. 成对数据评测
 
-If clean ground truth images are available, arrange them as:
+如果有反光输入和 clean ground truth，请按如下结构准备：
 
 ```text
 data/my_eval/
@@ -112,7 +109,7 @@ data/my_eval/
     sample_001.png
 ```
 
-Then evaluate predictions:
+评测预测结果：
 
 ```bash
 conda activate dip-errnet
@@ -124,18 +121,48 @@ python scripts/eval_sirr.py \
   --align crop-min
 ```
 
-The evaluator reports PSNR, SSIM, NCC, and LMSE.
+评测指标包括 PSNR、SSIM、NCC 和 LMSE。
 
-## 5. Reproduce Project Experiments
+## 5. 数据准备
 
-Prepare the public datasets following `docs/DATASETS.md`, then check the processed layout:
+公开数据集的推荐目录结构见 [docs/DATASETS.md](docs/DATASETS.md)。完成数据下载和预处理后，可以检查布局：
 
 ```bash
 conda activate dip-errnet
 python scripts/check_data_layout.py
 ```
 
-Generate the five-image self-collected synthetic reflection set:
+DSRNet 训练和官方协议复现需要 DSRNet all-in-one 数据包。统一 wrapper 比较可以使用 `scripts/prepare_dsrnet_from_errnet.py` 从 ERRNet 数据布局创建桥接目录：
+
+```bash
+conda activate dip-dsrnet
+python scripts/prepare_dsrnet_from_errnet.py --force
+```
+
+## 6. 训练与消融
+
+训练 ERRNet / DSRNet-L 自训练基线：
+
+```bash
+ERRNET_PY=/path/to/dip-errnet/bin/python \
+DSRNET_PY=/path/to/dip-dsrnet/bin/python \
+bash scripts/run_training_queue.sh
+```
+
+从 DSRNet-L 自训练权重继续 fine-tune PG-DSRNet-L，并运行频率先验、反射先验、两者结合的消融：
+
+```bash
+ERRNET_PY=/path/to/dip-errnet/bin/python \
+DSRNET_PY=/path/to/dip-dsrnet/bin/python \
+PG_BASE_CKPT=repos/DSRNet/checkpoints/dsrnet_l_train_setting_i/weights/20260613-042722/dsrnet_l_train_setting_i_latest.pt \
+bash scripts/run_pg_dsrnet_experiment.sh
+```
+
+如果当前 shell 已经激活了正确环境，也可以把 `ERRNET_PY` 或 `DSRNET_PY` 设置为 `python`。
+
+## 7. 自采 clean 图像合成反光
+
+如果你有 clean 图片但没有真实反光 paired GT，可以用现有反射源合成可评测数据。把 clean 图片放到 `self/` 或自定义目录，然后运行：
 
 ```bash
 conda activate dip-errnet
@@ -146,55 +173,54 @@ python scripts/synthesize_self_reflection.py \
   --max-long-edge 1024
 ```
 
-Run the self-collected synthetic benchmark:
+完整运行三种方法的自采合成评测：
 
 ```bash
+ERRNET_PY=/path/to/dip-errnet/bin/python \
+DSRNET_PY=/path/to/dip-dsrnet/bin/python \
 bash scripts/run_custom_synth_benchmark.sh
 ```
 
-Regenerate aggregated result tables:
+## 8. 结果汇总
+
+重新生成 Markdown 结果表：
 
 ```bash
 python scripts/export_experiment_results_md.py
 ```
 
-Regenerate paper figures:
-
-```bash
-python scripts/make_paper_figures.py
-```
-
-## 6. Results
-
-Aggregated tables are available in:
-
-- `paper/experiment_results.md`
-- `outputs/benchmarks/official_protocol_summary.csv`
-- `outputs/benchmarks/unified_protocol_summary.csv`
-- `outputs/benchmarks/self_trained_summary.csv`
-- `outputs/benchmarks/pg_dsrnet_summary.csv`
-- `outputs/benchmarks/custom_synth_summary.csv`
-
-Main observations:
-
-- DSRNet-L official epoch18 is strong on SIR2 Objects/Postcard/Wild under the unified evaluator.
-- Self-trained DSRNet-L improves over self-trained ERRNet on CEILNet, Objects, Postcard, and Wild, but not on real20.
-- PG-DSRNet-L freq+prior improves CEILNet table2 by `+0.866 dB PSNR` over self-trained DSRNet-L.
-- PG-DSRNet-L degrades on real20 and most SIR2 subsets, so the paper reports this as a domain-gap limitation rather than hiding it.
-- On the five self-collected synthetic reflection images, ERRNet is strongest under the current synthesis protocol.
-
-## 7. Paper
-
-The paper source is in:
+默认输出：
 
 ```text
-paper/cvpr2026_pg_dsrnet/
+docs/EXPERIMENT_RESULTS.md
 ```
 
-Compile `main.tex` with a standard LaTeX workflow or upload the folder to Overleaf. The paper uses a non-anonymous CVPR-style template and includes the GitHub and Baidu Netdisk links.
+主要 CSV/JSON 汇总位于：
 
-## 8. Notes
+```text
+outputs/benchmarks/official_protocol_summary.csv
+outputs/benchmarks/unified_protocol_summary.csv
+outputs/benchmarks/self_trained_summary.csv
+outputs/benchmarks/pg_dsrnet_summary.csv
+outputs/benchmarks/custom_synth_summary.csv
+```
 
-- Large weights and datasets are intentionally excluded from Git.
-- Prediction folders can be large; keep only summaries and selected figures when sharing results.
-- For more detailed command examples, see `docs/COMMANDS.md`.
+当前结果摘要：
+
+- PG-DSRNet-L freq+prior 在 CEILNet table2 上相比自训练 DSRNet-L 提升 `+0.866 dB PSNR`；
+- 在 real20 和多数 SIR2 子集上，PG-DSRNet-L 相比自训练 DSRNet-L 有退化，说明该轻量先验存在 domain gap；
+- 在五张 self-synth 合成评测图上，ERRNet 在当前合成协议下表现最好。
+
+## 9. 常用文档
+
+- [docs/DATASETS.md](docs/DATASETS.md)：数据集目录结构和下载来源
+- [docs/ENVIRONMENT.md](docs/ENVIRONMENT.md)：环境安装说明
+- [docs/COMMANDS.md](docs/COMMANDS.md)：更完整的训练和评测命令
+- [docs/WEIGHTS.md](docs/WEIGHTS.md)：权重下载、大小和 SHA256
+- [docs/EXPERIMENT_RESULTS.md](docs/EXPERIMENT_RESULTS.md)：实验结果汇总
+
+## 10. 注意事项
+
+- 大模型权重、原始数据集、训练日志和大规模预测图默认不提交到 Git。
+- `repos/ERRNet` 和 `repos/DSRNet` 在本仓库中应作为普通源码目录提交，而不是嵌套 git 仓库或 submodule。
+- 参考项目仅用于方法调研，不作为本仓库运行依赖。

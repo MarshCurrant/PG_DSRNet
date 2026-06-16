@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Generate paper-ready figures from benchmark summaries and predictions."""
+"""Generate publication-style figures from benchmark summaries and predictions."""
 
 from __future__ import annotations
 
@@ -31,7 +31,7 @@ COLORS = {
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--output-dir", type=Path, default=ROOT / "paper/cvpr2026_pg_dsrnet/figures")
+    parser.add_argument("--output-dir", type=Path, default=ROOT / "outputs/figures")
     return parser.parse_args()
 
 

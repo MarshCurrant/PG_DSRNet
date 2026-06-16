@@ -1,77 +1,77 @@
-# Environment Notes
+# Environment
+
+The repository uses two environments because ERRNet and DSRNet were released with different dependency assumptions.
 
 ## ERRNet
 
-Environment:
-
 ```bash
 conda create -n dip-errnet python=3.10 -y
-/home/nebula/.conda/envs/dip-errnet/bin/python -m pip install \
-  torch==2.7.0 torchvision==0.22.0 torchaudio==2.7.0 \
-  --index-url https://download.pytorch.org/whl/cu128
-conda install -n dip-errnet -y -c conda-forge \
-  matplotlib dominate scikit-image tensorboardx pyyaml h5py opencv pillow visdom "setuptools<82"
+conda activate dip-errnet
+pip install -r repos/ERRNet/requirements.txt
 ```
 
-Verified imports:
+If you need to install PyTorch manually, choose a build that matches your CUDA version. Example:
 
-```text
-torch 2.7.0+cu128
-torchvision 0.22.0+cu128
-cv2 4.12.0
-skimage 0.25.2
+```bash
+pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121
 ```
-
-Use `MPLCONFIGDIR=/tmp/matplotlib` for scripts that import matplotlib in this sandbox.
-Use `TORCH_HOME=/home/nebula/qqm/DIP/weights/torch` so VGG19 weights are loaded from the project cache.
 
 ## DSRNet
 
-Environment:
-
 ```bash
 conda create -n dip-dsrnet python=3.9 -y
-/home/nebula/.conda/envs/dip-dsrnet/bin/python -m pip install \
-  torch==2.7.0 torchvision==0.22.0 torchaudio==2.7.0 \
-  --index-url https://download.pytorch.org/whl/cu128
-conda install -n dip-dsrnet -y -c conda-forge \
-  dominate einops kornia opencv pyyaml scikit-image scipy tensorboardx visdom
+conda activate dip-dsrnet
+pip install -r repos/DSRNet/requirements.txt
 ```
 
-`repos/DSRNet/models/dsrnet_model_sirs.py` has a small PyTorch 2.6+ compatibility patch for `torch.load(..., weights_only=False)`.
+Again, replace the PyTorch package with the version that matches your machine if necessary.
 
-Verified imports:
+## Shared Runtime Variables
 
-```text
-torch 2.7.0+cu128
-torchvision 0.22.0+cu128
-kornia 0.7.1
-einops 0.7.0
-cv2 4.9.0
-skimage 0.22.0
-scipy 1.12.0
-```
-
-The upstream `dsrnet_s` constructor was missing `lrm_blk_nums=[2, 4]`; this project patches it so `weights/dsrnet_s_epoch14.pt` loads with all keys matched.
-
-## Shared VGG Cache
-
-Downloaded:
-
-```text
-weights/torch/hub/checkpoints/vgg19-dcbb9e9d.pth
-```
-
-DSRNet CPU smoke test with `repos/DSRNet/weights/dsrnet_s_epoch14.pt` completed on a temporary 32x32 image and produced `dsrnet_l.png`, `dsrnet_r.png`, `dsrnet_rr.png`, and `m_input.png`.
-
-## GPU Visibility
-
-The RTX 4090 is visible to `nvidia-smi`, but the managed sandbox hides `/dev/nvidia*`, so Python CUDA checks from the sandbox can return `False`. Use a regular terminal for the actual long training and benchmark runs:
+The scripts accept common environment variables:
 
 ```bash
-TORCH_HOME=/home/nebula/qqm/DIP/weights/torch python - <<'PY'
+export TORCH_HOME=weights/torch
+export MPLCONFIGDIR=/tmp/matplotlib
+export ERRNET_PY=/path/to/dip-errnet/bin/python
+export DSRNET_PY=/path/to/dip-dsrnet/bin/python
+```
+
+When running inside an already activated environment, the Python variables can simply be:
+
+```bash
+export ERRNET_PY=python
+export DSRNET_PY=python
+```
+
+## Smoke Test
+
+Check PyTorch and CUDA:
+
+```bash
+python - <<'PY'
 import torch
-print(torch.__version__, torch.version.cuda)
-print(torch.cuda.is_available(), torch.cuda.get_device_name(0))
+print("torch:", torch.__version__)
+print("cuda available:", torch.cuda.is_available())
+if torch.cuda.is_available():
+    print("gpu:", torch.cuda.get_device_name(0))
 PY
 ```
+
+Run a lightweight wrapper dry run:
+
+```bash
+python scripts/infer_method.py \
+  --method dsrnet \
+  --inet dsrnet_l \
+  --checkpoint repos/DSRNet/checkpoints/pg_dsrnet_l_freq_prior_ft/weights/20260616-020451/pg_dsrnet_l_freq_prior_ft_latest.pt \
+  --input_dir data/my_images \
+  --output_dir outputs/user/pg_dsrnet \
+  --dry_run
+```
+
+## Notes
+
+- The DSRNet code includes a PyTorch 2.6+ compatibility change for `torch.load(..., weights_only=False)`.
+- The DSRNet small constructor is patched so the released `dsrnet_s_epoch14.pt` can be loaded correctly.
+- Long training should be run from a normal terminal with GPU access.

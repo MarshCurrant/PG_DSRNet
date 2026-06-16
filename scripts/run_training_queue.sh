@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 set -Eeuo pipefail
 
-ROOT="/home/nebula/qqm/DIP"
-ERRNET_PY="/home/nebula/.conda/envs/dip-errnet/bin/python"
-DSRNET_PY="/home/nebula/.conda/envs/dip-dsrnet/bin/python"
+ROOT="${ROOT:-$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)}"
+ERRNET_PY="${ERRNET_PY:-python}"
+DSRNET_PY="${DSRNET_PY:-python}"
 TORCH_HOME_DIR="$ROOT/weights/torch"
 MPLCONFIG_DIR="/tmp/matplotlib"
 LOG_DIR="$ROOT/logs/training"

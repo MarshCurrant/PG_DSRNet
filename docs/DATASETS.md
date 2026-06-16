@@ -1,12 +1,16 @@
 # Dataset Layout
 
-The course branch of ERRNet expects all raw downloads under:
+Datasets are not stored in Git. Download them separately and place them under the expected directories below.
+
+## ERRNet Layout
+
+ERRNet expects raw data under:
 
 ```text
 repos/ERRNet/datasets/raw_data/
 ```
 
-Expected layout:
+Expected structure:
 
 ```text
 raw_data/
@@ -31,39 +35,49 @@ raw_data/
       unaligned_train250/
 ```
 
-## Sources
-
-- VOC2012: https://dataset.bj.bcebos.com/voc/VOCtrainval_11-May-2012.tar
-- Berkeley/Zhang real data: https://arxiv.org/abs/1806.05376
-- Course ERRNet package: https://drive.google.com/drive/folders/1_tN6JDlAmKZTgaqniQep1YJXmbFwGav7?usp=drive_link
-- Course Baidu package: https://pan.baidu.com/s/1MWb4eT18ySjogKVlcfPozg?pwd=egv2
-- DSRNet all-in-one data: https://drive.google.com/file/d/1hFZItZAzAt-LnfNj-2phBRwqplDUasQy/view?usp=sharing
-- SIR2 project page: https://sir2data.github.io/
-
-## Prepare Processed Data
-
-Note: the current ERRNet/DSRNet code lists contain 15287 VOC crop filenames. This exceeds the 7643-image count stated in the course slides, so the checker uses the repository count while the report should mention this implementation detail.
-
-ERRNet:
+Prepare ERRNet processed data:
 
 ```bash
-cd /home/nebula/qqm/DIP/repos/ERRNet
-MPLCONFIGDIR=/tmp/matplotlib /home/nebula/.conda/envs/dip-errnet/bin/python datasets/prepare_train_data.py
-MPLCONFIGDIR=/tmp/matplotlib /home/nebula/.conda/envs/dip-errnet/bin/python datasets/prepare_test_data.py
+conda activate dip-errnet
+cd repos/ERRNet
+python datasets/prepare_train_data.py
+python datasets/prepare_test_data.py
+cd ../..
 ```
 
-Count check:
+Check the processed layout:
 
 ```bash
-cd /home/nebula/qqm/DIP
-/home/nebula/.conda/envs/dip-errnet/bin/python scripts/check_data_layout.py
+conda activate dip-errnet
+python scripts/check_data_layout.py
 ```
 
-DSRNet layout bridge:
+## DSRNet Layout
+
+For native DSRNet reproduction, use the official all-in-one reflection-removal data package and extract it to:
+
+```text
+data/processed/dsrnet_official_extract/reflection-removal/
+```
+
+Expected important subdirectories:
+
+```text
+reflection-removal/
+  train/VOCdevkit/VOC2012/PNGImages
+  train/real
+  train/nature
+  test/real20_420
+  test/SIR2/SolidObjectDataset
+  test/SIR2/PostcardDataset
+  test/SIR2/WildSceneDataset
+```
+
+For unified wrapper comparison, a bridge layout can be created from ERRNet processed data:
 
 ```bash
-cd /home/nebula/qqm/DIP
-/home/nebula/.conda/envs/dip-dsrnet/bin/python scripts/prepare_dsrnet_from_errnet.py --force
+conda activate dip-dsrnet
+python scripts/prepare_dsrnet_from_errnet.py --force
 ```
 
 The bridge creates:
@@ -79,45 +93,35 @@ data/processed/dsrnet_base/
   test/SIR2/WildSceneDataset
 ```
 
-By default it uses symlinks. Add `--copy` only if the target machine cannot preserve symlinks.
+The bridge uses symlinks by default. Add `--copy` only when the target filesystem does not preserve symlinks.
 
-DSRNet official all-in-one data has been extracted to:
+Important: the bridge-created `test/real20_420` is for unified wrapper comparison only. For the DSRNet native paper protocol, use the official all-in-one `test/real20_420`.
 
-```text
-data/processed/dsrnet_official_extract/reflection-removal/
-  train/VOCdevkit/VOC2012/PNGImages      # 17125 PNG crops
-  train/real                             # 89 paired real training images
-  train/nature                           # 200 paired nature images, for Setting II only if used
-  test/real20_420                        # 20 official 420-wide real20 pairs
-  test/SIR2/SolidObjectDataset           # 200 pairs
-  test/SIR2/PostcardDataset              # 199 pairs
-  test/SIR2/WildSceneDataset             # 55 pairs
-```
+## Dataset Sources
 
-For DSRNet paper-protocol reproduction, use this official all-in-one path as
-`--base_dir`. The bridge-created `data/processed/dsrnet_base/test/real20_420`
-points to the ERRNet processed real20 data and should only be used for unified
-wrapper comparisons.
+- VOC2012: https://dataset.bj.bcebos.com/voc/VOCtrainval_11-May-2012.tar
+- Berkeley/Zhang real reflection data: https://arxiv.org/abs/1806.05376
+- SIR2 project page: https://sir2data.github.io/
+- DSRNet all-in-one data: use the official DSRNet release link from the upstream project.
 
-## Custom Photos
+## Custom Images
 
-For the five self-collected examples, prefer paired capture:
+For full-reference evaluation, prepare paired inputs and clean targets:
 
 ```text
-data/custom/reflection/
-  001.png
-  ...
-data/custom/clean/
-  001.png
-  ...
+data/my_eval/
+  blended/
+    sample_001.png
+  transmission_layer/
+    sample_001.png
 ```
 
-If clean references are not available, use:
+For reflection-only images without clean targets, run inference and report qualitative results only.
 
-```text
-data/custom/reflection_only/
-  001.png
-  ...
+For clean self-collected photos, `scripts/synthesize_self_reflection.py` can synthesize reflection-contaminated inputs and produce paired evaluation data:
+
+```bash
+python scripts/synthesize_self_reflection.py \
+  --clean-dir self \
+  --output-dir data/custom_synth
 ```
-
-and report qualitative results only.
