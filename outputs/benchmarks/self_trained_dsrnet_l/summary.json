@@ -1,0 +1,77 @@
+[
+  {
+    "pred_dir": "/home/nebula/qqm/DIP/outputs/benchmarks/self_trained_dsrnet_l/dsrnet/ceilnet_table2/predictions",
+    "gt_dir": "/home/nebula/qqm/DIP/repos/ERRNet/datasets/processed_data/testdata_CEILNET_table2/transmission_layer",
+    "count": 100,
+    "missing": [],
+    "skipped": [],
+    "metrics": {
+      "psnr": 28.341868712012435,
+      "ssim": 0.9478857900197553,
+      "ncc": 0.9858819542432077,
+      "lmse": 0.0037895334061491333
+    },
+    "method": "dsrnet",
+    "dataset": "ceilnet_table2"
+  },
+  {
+    "pred_dir": "/home/nebula/qqm/DIP/outputs/benchmarks/self_trained_dsrnet_l/dsrnet/real20/predictions",
+    "gt_dir": "/home/nebula/qqm/DIP/repos/ERRNet/datasets/processed_data/real20/transmission_layer",
+    "count": 20,
+    "missing": [],
+    "skipped": [],
+    "metrics": {
+      "psnr": 22.22203713159461,
+      "ssim": 0.7902645391187975,
+      "ncc": 0.8683289615564111,
+      "lmse": 0.02312204576689951
+    },
+    "method": "dsrnet",
+    "dataset": "real20"
+  },
+  {
+    "pred_dir": "/home/nebula/qqm/DIP/outputs/benchmarks/self_trained_dsrnet_l/dsrnet/objects/predictions",
+    "gt_dir": "/home/nebula/qqm/DIP/repos/ERRNet/datasets/processed_data/objects/transmission_layer",
+    "count": 200,
+    "missing": [],
+    "skipped": [],
+    "metrics": {
+      "psnr": 25.678570101542913,
+      "ssim": 0.9118544079104689,
+      "ncc": 0.9850898724482019,
+      "lmse": 0.0023669988831825717
+    },
+    "method": "dsrnet",
+    "dataset": "objects"
+  },
+  {
+    "pred_dir": "/home/nebula/qqm/DIP/outputs/benchmarks/self_trained_dsrnet_l/dsrnet/postcard/predictions",
+    "gt_dir": "/home/nebula/qqm/DIP/repos/ERRNet/datasets/processed_data/postcard/transmission_layer",
+    "count": 179,
+    "missing": [],
+    "skipped": [],
+    "metrics": {
+      "psnr": 21.47708881272494,
+      "ssim": 0.9050431089869744,
+      "ncc": 0.9642729034019294,
+      "lmse": 0.0031230284859306953
+    },
+    "method": "dsrnet",
+    "dataset": "postcard"
+  },
+  {
+    "pred_dir": "/home/nebula/qqm/DIP/outputs/benchmarks/self_trained_dsrnet_l/dsrnet/wild/predictions",
+    "gt_dir": "/home/nebula/qqm/DIP/repos/ERRNet/datasets/processed_data/wild/transmission_layer",
+    "count": 101,
+    "missing": [],
+    "skipped": [],
+    "metrics": {
+      "psnr": 25.856861035949184,
+      "ssim": 0.9155859562494526,
+      "ncc": 0.9607959884345957,
+      "lmse": 0.003943232911831341
+    },
+    "method": "dsrnet",
+    "dataset": "wild"
+  }
+]

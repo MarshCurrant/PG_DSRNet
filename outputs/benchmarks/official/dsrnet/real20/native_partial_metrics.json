@@ -1,0 +1,23 @@
+{
+  "pred_dir": "/home/nebula/qqm/DIP/repos/DSRNet/checkpoints/dsrnet_s_native_real20_selected/20260611-200334/real20/real20",
+  "gt_dir": "/home/nebula/qqm/DIP/repos/ERRNet/datasets/processed_data/real20/transmission_layer",
+  "count": 11,
+  "missing": [
+    "103",
+    "110",
+    "15",
+    "23",
+    "3",
+    "46",
+    "86",
+    "89",
+    "9"
+  ],
+  "skipped": [],
+  "metrics": {
+    "psnr": 21.242713957508553,
+    "ssim": 0.7751148110907828,
+    "ncc": 0.8962109478058774,
+    "lmse": 0.018944015007097508
+  }
+}

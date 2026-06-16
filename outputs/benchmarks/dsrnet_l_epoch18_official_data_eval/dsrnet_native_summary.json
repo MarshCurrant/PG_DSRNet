@@ -1,0 +1,46 @@
+{
+  "run_dir": "/home/nebula/qqm/DIP/repos/DSRNet/checkpoints/dsrnet_l_epoch18_official_data_eval/20260612-145852",
+  "count": 474,
+  "splits": [
+    {
+      "split": "postcard",
+      "count": 199,
+      "psnr": 24.84965263499118,
+      "ssim": 0.909474677407527,
+      "ncc": 0.965572238427851,
+      "lmse": 0.002821257627562201,
+      "metrics_txt_psnr": 24.884048049491614,
+      "metrics_txt_ssim": 0.9101891600297881
+    },
+    {
+      "split": "real20",
+      "count": 20,
+      "psnr": 23.90338318101832,
+      "ssim": 0.8174230427870015,
+      "ncc": 0.8995118201250252,
+      "lmse": 0.019716660406703314,
+      "metrics_txt_psnr": 23.882054294541685,
+      "metrics_txt_ssim": 0.8160850242672112
+    },
+    {
+      "split": "solidobject",
+      "count": 200,
+      "psnr": 26.436490435188034,
+      "ssim": 0.9215397536182715,
+      "ncc": 0.987375785402864,
+      "lmse": 0.0023835692883682606,
+      "metrics_txt_psnr": 26.44047541913234,
+      "metrics_txt_ssim": 0.9215475260099021
+    },
+    {
+      "split": "wild",
+      "count": 55,
+      "psnr": 24.711315058936933,
+      "ssim": 0.8969886901107768,
+      "ncc": 0.9318807460632332,
+      "lmse": 0.007172819917938357,
+      "metrics_txt_psnr": 24.770931736298138,
+      "metrics_txt_ssim": 0.897525185437917
+    }
+  ]
+}

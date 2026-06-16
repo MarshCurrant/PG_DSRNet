@@ -1,0 +1,57 @@
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+
+# Environments and local caches
+.env
+.venv/
+env/
+venv/
+.cache/
+
+# Model weights and checkpoints
+*.pt
+*.pth
+*.ckpt
+checkpoints/
+weights/
+repos/**/checkpoints/
+repos/**/weights/
+
+# Datasets and generated data
+data/raw/
+data/processed/
+data/custom_synth/
+repos/**/datasets/raw_data/
+repos/**/datasets/processed_data/
+
+# Logs and experiment runtime artifacts
+logs/
+wandb/
+visdom/
+outputs/errnet/
+outputs/dsrnet/
+outputs/benchmarks/**/predictions/
+outputs/benchmarks/**/*_outputs/
+
+# Keep benchmark summaries and paper figures; ignore heavy transient media by path above.
+
+# LaTeX build products
+*.aux
+*.bbl
+*.blg
+*.brf
+*.fdb_latexmk
+*.fls
+*.log
+*.out
+*.synctex.gz
+*.toc
+
+# OS/editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/

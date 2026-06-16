@@ -1,0 +1,152 @@
+[
+  {
+    "pred_dir": "/home/nebula/qqm/DIP/outputs/benchmarks/official/errnet/ceilnet_table2/predictions",
+    "gt_dir": "/home/nebula/qqm/DIP/repos/ERRNet/datasets/processed_data/testdata_CEILNET_table2/transmission_layer",
+    "count": 100,
+    "missing": [],
+    "skipped": [],
+    "metrics": {
+      "psnr": 27.585910536861096,
+      "ssim": 0.9396225293833699,
+      "ncc": 0.980782890688422,
+      "lmse": 0.004912057593762402
+    },
+    "method": "errnet",
+    "dataset": "ceilnet_table2"
+  },
+  {
+    "pred_dir": "/home/nebula/qqm/DIP/outputs/benchmarks/official/errnet/real20/predictions",
+    "gt_dir": "/home/nebula/qqm/DIP/repos/ERRNet/datasets/processed_data/real20/transmission_layer",
+    "count": 20,
+    "missing": [],
+    "skipped": [],
+    "metrics": {
+      "psnr": 23.068617446688535,
+      "ssim": 0.8157269169034134,
+      "ncc": 0.8845973483626391,
+      "lmse": 0.021790685296993684
+    },
+    "method": "errnet",
+    "dataset": "real20"
+  },
+  {
+    "pred_dir": "/home/nebula/qqm/DIP/outputs/benchmarks/official/errnet/objects/predictions",
+    "gt_dir": "/home/nebula/qqm/DIP/repos/ERRNet/datasets/processed_data/objects/transmission_layer",
+    "count": 200,
+    "missing": [],
+    "skipped": [],
+    "metrics": {
+      "psnr": 24.773557118775575,
+      "ssim": 0.898574321054304,
+      "ncc": 0.9817033557588333,
+      "lmse": 0.002900003706692043
+    },
+    "method": "errnet",
+    "dataset": "objects"
+  },
+  {
+    "pred_dir": "/home/nebula/qqm/DIP/outputs/benchmarks/official/errnet/postcard/predictions",
+    "gt_dir": "/home/nebula/qqm/DIP/repos/ERRNet/datasets/processed_data/postcard/transmission_layer",
+    "count": 179,
+    "missing": [],
+    "skipped": [],
+    "metrics": {
+      "psnr": 21.85904942901544,
+      "ssim": 0.8763833534529049,
+      "ncc": 0.9462574614268566,
+      "lmse": 0.004417044611080831
+    },
+    "method": "errnet",
+    "dataset": "postcard"
+  },
+  {
+    "pred_dir": "/home/nebula/qqm/DIP/outputs/benchmarks/official/errnet/wild/predictions",
+    "gt_dir": "/home/nebula/qqm/DIP/repos/ERRNet/datasets/processed_data/wild/transmission_layer",
+    "count": 101,
+    "missing": [],
+    "skipped": [],
+    "metrics": {
+      "psnr": 24.884753357972016,
+      "ssim": 0.881795218840275,
+      "ncc": 0.9358464682278116,
+      "lmse": 0.008741596697531323
+    },
+    "method": "errnet",
+    "dataset": "wild"
+  },
+  {
+    "pred_dir": "/home/nebula/qqm/DIP/outputs/benchmarks/official/dsrnet/ceilnet_table2/predictions",
+    "gt_dir": "/home/nebula/qqm/DIP/repos/ERRNet/datasets/processed_data/testdata_CEILNET_table2/transmission_layer",
+    "count": 100,
+    "missing": [],
+    "skipped": [],
+    "metrics": {
+      "psnr": 24.18700920567457,
+      "ssim": 0.9028807675566758,
+      "ncc": 0.9610228626722767,
+      "lmse": 0.007955273998407734
+    },
+    "method": "dsrnet",
+    "dataset": "ceilnet_table2"
+  },
+  {
+    "pred_dir": "/home/nebula/qqm/DIP/outputs/benchmarks/official/dsrnet/real20/predictions",
+    "gt_dir": "/home/nebula/qqm/DIP/repos/ERRNet/datasets/processed_data/real20/transmission_layer",
+    "count": 20,
+    "missing": [],
+    "skipped": [],
+    "metrics": {
+      "psnr": 22.043862778028988,
+      "ssim": 0.7755931347265288,
+      "ncc": 0.8707847418738683,
+      "lmse": 0.02371284155762681
+    },
+    "method": "dsrnet",
+    "dataset": "real20"
+  },
+  {
+    "pred_dir": "/home/nebula/qqm/DIP/outputs/benchmarks/official/dsrnet/objects/predictions",
+    "gt_dir": "/home/nebula/qqm/DIP/repos/ERRNet/datasets/processed_data/objects/transmission_layer",
+    "count": 200,
+    "missing": [],
+    "skipped": [],
+    "metrics": {
+      "psnr": 26.011757982910463,
+      "ssim": 0.9138633625686323,
+      "ncc": 0.9850303024270111,
+      "lmse": 0.002463570259501041
+    },
+    "method": "dsrnet",
+    "dataset": "objects"
+  },
+  {
+    "pred_dir": "/home/nebula/qqm/DIP/outputs/benchmarks/official/dsrnet/postcard/predictions",
+    "gt_dir": "/home/nebula/qqm/DIP/repos/ERRNet/datasets/processed_data/postcard/transmission_layer",
+    "count": 179,
+    "missing": [],
+    "skipped": [],
+    "metrics": {
+      "psnr": 24.123451843592537,
+      "ssim": 0.9083230492527697,
+      "ncc": 0.959573552684562,
+      "lmse": 0.003031655052869471
+    },
+    "method": "dsrnet",
+    "dataset": "postcard"
+  },
+  {
+    "pred_dir": "/home/nebula/qqm/DIP/outputs/benchmarks/official/dsrnet/wild/predictions",
+    "gt_dir": "/home/nebula/qqm/DIP/repos/ERRNet/datasets/processed_data/wild/transmission_layer",
+    "count": 101,
+    "missing": [],
+    "skipped": [],
+    "metrics": {
+      "psnr": 24.9365764213348,
+      "ssim": 0.9083922094878827,
+      "ncc": 0.9538025340830951,
+      "lmse": 0.005170958407903059
+    },
+    "method": "dsrnet",
+    "dataset": "wild"
+  }
+]

@@ -1,0 +1,32 @@
+[
+  {
+    "method": "ERRNet self-trained",
+    "dataset": "Self-synth",
+    "count": 5,
+    "psnr": 23.978982341700366,
+    "ssim": 0.9616364193496768,
+    "ncc": 0.9847330224319684,
+    "lmse": 0.0016349129952027241,
+    "source": "/home/nebula/qqm/DIP/outputs/benchmarks/custom_synth/errnet/metrics.csv"
+  },
+  {
+    "method": "DSRNet-L self-trained",
+    "dataset": "Self-synth",
+    "count": 5,
+    "psnr": 14.04037217326794,
+    "ssim": 0.39279123800893145,
+    "ncc": 0.725626507962615,
+    "lmse": 0.08834754674232057,
+    "source": "/home/nebula/qqm/DIP/outputs/benchmarks/custom_synth/dsrnet_l/metrics.csv"
+  },
+  {
+    "method": "PG-DSRNet-L freq+prior",
+    "dataset": "Self-synth",
+    "count": 5,
+    "psnr": 14.065780504196564,
+    "ssim": 0.39289295684953246,
+    "ncc": 0.7287896395359057,
+    "lmse": 0.08684587843214282,
+    "source": "/home/nebula/qqm/DIP/outputs/benchmarks/custom_synth/pg_dsrnet_l_freq_prior/metrics.csv"
+  }
+]

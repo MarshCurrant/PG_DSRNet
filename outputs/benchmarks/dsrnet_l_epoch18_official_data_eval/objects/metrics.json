@@ -1,0 +1,13 @@
+{
+  "pred_dir": "/home/nebula/qqm/DIP/repos/DSRNet/checkpoints/dsrnet_l_epoch18_official_data_eval/20260612-145852/solidobject",
+  "gt_dir": "/home/nebula/qqm/DIP/data/processed/dsrnet_official_extract/reflection-removal/test/SIR2/SolidObjectDataset/transmission_layer",
+  "count": 200,
+  "missing": [],
+  "skipped": [],
+  "metrics": {
+    "psnr": 26.2852285847416,
+    "ssim": 0.9215397536182715,
+    "ncc": 0.987375785402864,
+    "lmse": 0.0023835692883682606
+  }
+}

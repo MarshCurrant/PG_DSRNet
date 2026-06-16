@@ -1,0 +1,57 @@
+[
+  {
+    "dataset": "ceilnet_table2",
+    "sample": "2007_003506",
+    "paths": {
+      "Input": "/home/nebula/qqm/DIP/repos/ERRNet/datasets/processed_data/testdata_CEILNET_table2/blended/2007_003506.png",
+      "GT": "/home/nebula/qqm/DIP/repos/ERRNet/datasets/processed_data/testdata_CEILNET_table2/transmission_layer/2007_003506.png",
+      "ERRNet self": "/home/nebula/qqm/DIP/outputs/benchmarks/self_trained_errnet/errnet/ceilnet_table2/predictions/2007_003506/errnet_ceilnet_table2_official.png",
+      "DSRNet self": "/home/nebula/qqm/DIP/outputs/benchmarks/self_trained_dsrnet_l/dsrnet/ceilnet_table2/predictions/2007_003506/dsrnet_ceilnet_table2_official_l.png",
+      "PG-DSRNet": "outputs/benchmarks/pg_dsrnet_l_freq_prior/dsrnet/ceilnet_table2/predictions/2007_003506/dsrnet_ceilnet_table2_official_l.png"
+    }
+  },
+  {
+    "dataset": "real20",
+    "sample": "3",
+    "paths": {
+      "Input": "/home/nebula/qqm/DIP/repos/ERRNet/datasets/processed_data/real20/blended/3.jpg",
+      "GT": "/home/nebula/qqm/DIP/repos/ERRNet/datasets/processed_data/real20/transmission_layer/3.jpg",
+      "ERRNet self": "/home/nebula/qqm/DIP/outputs/benchmarks/self_trained_errnet/errnet/real20/predictions/3/errnet_real20_official.png",
+      "DSRNet self": "/home/nebula/qqm/DIP/outputs/benchmarks/self_trained_dsrnet_l/dsrnet/real20/predictions/3/dsrnet_real20_official_l.png",
+      "PG-DSRNet": "outputs/benchmarks/pg_dsrnet_l_freq_prior/dsrnet/real20/predictions/3/dsrnet_real20_official_l.png"
+    }
+  },
+  {
+    "dataset": "objects",
+    "sample": "1-Focus-11-m",
+    "paths": {
+      "Input": "/home/nebula/qqm/DIP/repos/ERRNet/datasets/processed_data/objects/blended/1-Focus-11-m.jpg",
+      "GT": "/home/nebula/qqm/DIP/repos/ERRNet/datasets/processed_data/objects/transmission_layer/1-Focus-11-m.jpg",
+      "ERRNet self": "/home/nebula/qqm/DIP/outputs/benchmarks/self_trained_errnet/errnet/objects/predictions/1-Focus-11-m/errnet_objects_official.png",
+      "DSRNet self": "/home/nebula/qqm/DIP/outputs/benchmarks/self_trained_dsrnet_l/dsrnet/objects/predictions/1-Focus-11-m/dsrnet_objects_official_l.png",
+      "PG-DSRNet": "outputs/benchmarks/pg_dsrnet_l_freq_prior/dsrnet/objects/predictions/1-Focus-11-m/dsrnet_objects_official_l.png"
+    }
+  },
+  {
+    "dataset": "postcard",
+    "sample": "ab-3-m-32",
+    "paths": {
+      "Input": "/home/nebula/qqm/DIP/repos/ERRNet/datasets/processed_data/postcard/blended/ab-3-m-32.png",
+      "GT": "/home/nebula/qqm/DIP/repos/ERRNet/datasets/processed_data/postcard/transmission_layer/ab-3-m-32.png",
+      "ERRNet self": "/home/nebula/qqm/DIP/outputs/benchmarks/self_trained_errnet/errnet/postcard/predictions/ab-3-m-32/errnet_postcard_official.png",
+      "DSRNet self": "/home/nebula/qqm/DIP/outputs/benchmarks/self_trained_dsrnet_l/dsrnet/postcard/predictions/ab-3-m-32/dsrnet_postcard_official_l.png",
+      "PG-DSRNet": "outputs/benchmarks/pg_dsrnet_l_freq_prior/dsrnet/postcard/predictions/ab-3-m-32/dsrnet_postcard_official_l.png"
+    }
+  },
+  {
+    "dataset": "wild",
+    "sample": "1-m",
+    "paths": {
+      "Input": "/home/nebula/qqm/DIP/repos/ERRNet/datasets/processed_data/wild/blended/1-m.jpg",
+      "GT": "/home/nebula/qqm/DIP/repos/ERRNet/datasets/processed_data/wild/transmission_layer/1-m.jpg",
+      "ERRNet self": "/home/nebula/qqm/DIP/outputs/benchmarks/self_trained_errnet/errnet/wild/predictions/1-m/errnet_wild_official.png",
+      "DSRNet self": "/home/nebula/qqm/DIP/outputs/benchmarks/self_trained_dsrnet_l/dsrnet/wild/predictions/1-m/dsrnet_wild_official_l.png",
+      "PG-DSRNet": "outputs/benchmarks/pg_dsrnet_l_freq_prior/dsrnet/wild/predictions/1-m/dsrnet_wild_official_l.png"
+    }
+  }
+]

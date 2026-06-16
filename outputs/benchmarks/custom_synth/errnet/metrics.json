@@ -1,0 +1,13 @@
+{
+  "pred_dir": "/home/nebula/qqm/DIP/outputs/benchmarks/custom_synth/errnet/predictions",
+  "gt_dir": "/home/nebula/qqm/DIP/data/custom_synth/transmission_layer",
+  "count": 5,
+  "missing": [],
+  "skipped": [],
+  "metrics": {
+    "psnr": 23.978982341700366,
+    "ssim": 0.9616364193496768,
+    "ncc": 0.9847330224319684,
+    "lmse": 0.0016349129952027241
+  }
+}

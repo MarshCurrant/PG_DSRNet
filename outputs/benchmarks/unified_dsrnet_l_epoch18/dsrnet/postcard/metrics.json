@@ -1,0 +1,13 @@
+{
+  "pred_dir": "/home/nebula/qqm/DIP/outputs/benchmarks/unified_dsrnet_l_epoch18/dsrnet/postcard/predictions",
+  "gt_dir": "/home/nebula/qqm/DIP/repos/ERRNet/datasets/processed_data/postcard/transmission_layer",
+  "count": 179,
+  "missing": [],
+  "skipped": [],
+  "metrics": {
+    "psnr": 24.723759776893882,
+    "ssim": 0.9118885565996958,
+    "ncc": 0.9663154145175176,
+    "lmse": 0.002753910485318668
+  }
+}

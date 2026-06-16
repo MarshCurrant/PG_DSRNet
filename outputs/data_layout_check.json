@@ -1,0 +1,93 @@
+[
+  {
+    "name": "voc_train",
+    "path": "/home/nebula/qqm/DIP/repos/ERRNet/datasets/processed_data/VOCdevkit/VOC2012/PNGImages",
+    "count": 15287,
+    "expected": 15287,
+    "status": "ok"
+  },
+  {
+    "name": "real_train_blended",
+    "path": "/home/nebula/qqm/DIP/repos/ERRNet/datasets/processed_data/real_train/blended",
+    "count": 89,
+    "expected": 89,
+    "status": "ok"
+  },
+  {
+    "name": "real_train_gt",
+    "path": "/home/nebula/qqm/DIP/repos/ERRNet/datasets/processed_data/real_train/transmission_layer",
+    "count": 89,
+    "expected": 89,
+    "status": "ok"
+  },
+  {
+    "name": "ceilnet_table2_blended",
+    "path": "/home/nebula/qqm/DIP/repos/ERRNet/datasets/processed_data/testdata_CEILNET_table2/blended",
+    "count": 100,
+    "expected": 100,
+    "status": "ok"
+  },
+  {
+    "name": "ceilnet_table2_gt",
+    "path": "/home/nebula/qqm/DIP/repos/ERRNet/datasets/processed_data/testdata_CEILNET_table2/transmission_layer",
+    "count": 100,
+    "expected": 100,
+    "status": "ok"
+  },
+  {
+    "name": "real20_blended",
+    "path": "/home/nebula/qqm/DIP/repos/ERRNet/datasets/processed_data/real20/blended",
+    "count": 20,
+    "expected": 20,
+    "status": "ok"
+  },
+  {
+    "name": "real20_gt",
+    "path": "/home/nebula/qqm/DIP/repos/ERRNet/datasets/processed_data/real20/transmission_layer",
+    "count": 20,
+    "expected": 20,
+    "status": "ok"
+  },
+  {
+    "name": "objects_blended",
+    "path": "/home/nebula/qqm/DIP/repos/ERRNet/datasets/processed_data/objects/blended",
+    "count": 200,
+    "expected": 200,
+    "status": "ok"
+  },
+  {
+    "name": "objects_gt",
+    "path": "/home/nebula/qqm/DIP/repos/ERRNet/datasets/processed_data/objects/transmission_layer",
+    "count": 200,
+    "expected": 200,
+    "status": "ok"
+  },
+  {
+    "name": "postcard_blended",
+    "path": "/home/nebula/qqm/DIP/repos/ERRNet/datasets/processed_data/postcard/blended",
+    "count": 179,
+    "expected": 179,
+    "status": "ok"
+  },
+  {
+    "name": "postcard_gt",
+    "path": "/home/nebula/qqm/DIP/repos/ERRNet/datasets/processed_data/postcard/transmission_layer",
+    "count": 179,
+    "expected": 179,
+    "status": "ok"
+  },
+  {
+    "name": "wild_blended",
+    "path": "/home/nebula/qqm/DIP/repos/ERRNet/datasets/processed_data/wild/blended",
+    "count": 101,
+    "expected": 101,
+    "status": "ok"
+  },
+  {
+    "name": "wild_gt",
+    "path": "/home/nebula/qqm/DIP/repos/ERRNet/datasets/processed_data/wild/transmission_layer",
+    "count": 101,
+    "expected": 101,
+    "status": "ok"
+  }
+]

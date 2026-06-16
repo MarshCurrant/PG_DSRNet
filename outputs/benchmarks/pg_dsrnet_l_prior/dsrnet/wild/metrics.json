@@ -1,0 +1,13 @@
+{
+  "pred_dir": "/home/nebula/qqm/DIP/outputs/benchmarks/pg_dsrnet_l_prior/dsrnet/wild/predictions",
+  "gt_dir": "/home/nebula/qqm/DIP/repos/ERRNet/datasets/processed_data/wild/transmission_layer",
+  "count": 101,
+  "missing": [],
+  "skipped": [],
+  "metrics": {
+    "psnr": 25.474160542300638,
+    "ssim": 0.9194385338777258,
+    "ncc": 0.9605815725547202,
+    "lmse": 0.00366195863688278
+  }
+}

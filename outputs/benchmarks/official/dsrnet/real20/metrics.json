@@ -1,0 +1,13 @@
+{
+  "pred_dir": "/home/nebula/qqm/DIP/outputs/benchmarks/official/dsrnet/real20/predictions",
+  "gt_dir": "/home/nebula/qqm/DIP/repos/ERRNet/datasets/processed_data/real20/transmission_layer",
+  "count": 20,
+  "missing": [],
+  "skipped": [],
+  "metrics": {
+    "psnr": 22.043862778028988,
+    "ssim": 0.7755931347265288,
+    "ncc": 0.8707847418738683,
+    "lmse": 0.02371284155762681
+  }
+}

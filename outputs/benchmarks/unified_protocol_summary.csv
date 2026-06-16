@@ -1,0 +1,11 @@
+method,checkpoint,protocol,dataset,count,psnr,ssim,ncc,lmse,source
+ERRNet,errnet_060_00463920.pt,unified wrapper plus eval_sirr.py,CEILNet table2,100,27.585910536861,0.939622529383,0.980782890688,0.004912057594,outputs/benchmarks/official/summary.csv
+ERRNet,errnet_060_00463920.pt,unified wrapper plus eval_sirr.py,real20,20,23.068617446689,0.815726916903,0.884597348363,0.021790685297,outputs/benchmarks/official/summary.csv
+ERRNet,errnet_060_00463920.pt,unified wrapper plus eval_sirr.py,Objects,200,24.773557118776,0.898574321054,0.981703355759,0.002900003707,outputs/benchmarks/official/summary.csv
+ERRNet,errnet_060_00463920.pt,unified wrapper plus eval_sirr.py,Postcard,179,21.859049429015,0.876383353453,0.946257461427,0.004417044611,outputs/benchmarks/official/summary.csv
+ERRNet,errnet_060_00463920.pt,unified wrapper plus eval_sirr.py,Wild,101,24.884753357972,0.881795218840,0.935846468228,0.008741596698,outputs/benchmarks/official/summary.csv
+DSRNet-L,dsrnet_l_epoch18.pt,unified wrapper plus eval_sirr.py,CEILNet table2,100,25.444425022149,0.919512343620,0.972790365376,0.006076744203,outputs/benchmarks/unified_dsrnet_l_epoch18/summary.csv
+DSRNet-L,dsrnet_l_epoch18.pt,unified wrapper plus eval_sirr.py,real20,20,22.515048325246,0.778882943422,0.877572605175,0.022701587824,outputs/benchmarks/unified_dsrnet_l_epoch18/summary.csv
+DSRNet-L,dsrnet_l_epoch18.pt,unified wrapper plus eval_sirr.py,Objects,200,26.285232656268,0.921539365821,0.987375754846,0.002383580001,outputs/benchmarks/unified_dsrnet_l_epoch18/summary.csv
+DSRNet-L,dsrnet_l_epoch18.pt,unified wrapper plus eval_sirr.py,Postcard,179,24.723759776894,0.911888556600,0.966315414518,0.002753910485,outputs/benchmarks/unified_dsrnet_l_epoch18/summary.csv
+DSRNet-L,dsrnet_l_epoch18.pt,unified wrapper plus eval_sirr.py,Wild,101,25.808938826506,0.917805993518,0.951592528120,0.004927866235,outputs/benchmarks/unified_dsrnet_l_epoch18/summary.csv

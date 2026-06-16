@@ -1,0 +1,13 @@
+{
+  "pred_dir": "/home/nebula/qqm/DIP/repos/DSRNet/checkpoints/dsrnet_l_epoch18_official_data_eval/20260612-145852/postcard",
+  "gt_dir": "/home/nebula/qqm/DIP/data/processed/dsrnet_official_extract/reflection-removal/test/SIR2/PostcardDataset/transmission_layer",
+  "count": 199,
+  "missing": [],
+  "skipped": [],
+  "metrics": {
+    "psnr": 24.630770481304452,
+    "ssim": 0.909474677407527,
+    "ncc": 0.965572238427851,
+    "lmse": 0.002821257627562201
+  }
+}

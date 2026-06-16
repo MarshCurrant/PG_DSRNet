@@ -1,0 +1,13 @@
+{
+  "pred_dir": "/home/nebula/qqm/DIP/repos/DSRNet/checkpoints/dsrnet_l_epoch18_official_data_eval/20260612-145852/wild",
+  "gt_dir": "/home/nebula/qqm/DIP/data/processed/dsrnet_official_extract/reflection-removal/test/SIR2/WildSceneDataset/transmission_layer",
+  "count": 55,
+  "missing": [],
+  "skipped": [],
+  "metrics": {
+    "psnr": 24.479110029188462,
+    "ssim": 0.8969886901107768,
+    "ncc": 0.9318807460632332,
+    "lmse": 0.007172819917938357
+  }
+}

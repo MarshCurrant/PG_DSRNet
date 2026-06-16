@@ -1,0 +1,2 @@
+key,pred_path,gt_path,width,height,align,psnr,ssim,ncc,lmse
+103,/home/nebula/qqm/DIP/outputs/smoke/errnet/103/errnet_smoke.png,/home/nebula/qqm/DIP/outputs/smoke/gt/transmission_layer/103.jpg,1114,717,crop-min:1114x717,20.074195508411336,0.8416923143571197,0.9188932399985886,0.0070533318124327464

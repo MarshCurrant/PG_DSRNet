@@ -1,0 +1,13 @@
+{
+  "pred_dir": "/home/nebula/qqm/DIP/outputs/smoke/errnet",
+  "gt_dir": "/home/nebula/qqm/DIP/outputs/smoke/gt/transmission_layer",
+  "count": 1,
+  "missing": [],
+  "skipped": [],
+  "metrics": {
+    "psnr": 20.074195508411336,
+    "ssim": 0.8416923143571197,
+    "ncc": 0.9188932399985886,
+    "lmse": 0.0070533318124327464
+  }
+}

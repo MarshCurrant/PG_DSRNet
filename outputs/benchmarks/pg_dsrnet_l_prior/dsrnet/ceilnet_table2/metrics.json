@@ -1,0 +1,13 @@
+{
+  "pred_dir": "/home/nebula/qqm/DIP/outputs/benchmarks/pg_dsrnet_l_prior/dsrnet/ceilnet_table2/predictions",
+  "gt_dir": "/home/nebula/qqm/DIP/repos/ERRNet/datasets/processed_data/testdata_CEILNET_table2/transmission_layer",
+  "count": 100,
+  "missing": [],
+  "skipped": [],
+  "metrics": {
+    "psnr": 29.00199810924757,
+    "ssim": 0.9535124737462267,
+    "ncc": 0.9873277468560983,
+    "lmse": 0.0034859460457992656
+  }
+}

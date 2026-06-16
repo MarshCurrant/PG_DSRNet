@@ -1,0 +1,4 @@
+method,dataset,count,psnr,ssim,ncc,lmse,source
+ERRNet self-trained,Self-synth,5,23.978982341700366,0.9616364193496768,0.9847330224319684,0.0016349129952027241,/home/nebula/qqm/DIP/outputs/benchmarks/custom_synth/errnet/metrics.csv
+DSRNet-L self-trained,Self-synth,5,14.04037217326794,0.39279123800893145,0.725626507962615,0.08834754674232057,/home/nebula/qqm/DIP/outputs/benchmarks/custom_synth/dsrnet_l/metrics.csv
+PG-DSRNet-L freq+prior,Self-synth,5,14.065780504196564,0.39289295684953246,0.7287896395359057,0.08684587843214282,/home/nebula/qqm/DIP/outputs/benchmarks/custom_synth/pg_dsrnet_l_freq_prior/metrics.csv
