@@ -2,7 +2,7 @@
 
 \documentclass[10pt,twocolumn,letterpaper]{article}
 
-\usepackage[review]{cvpr}
+\usepackage[final]{cvpr}
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{booktabs}
@@ -338,7 +338,22 @@ The experiments show that DSRNet-L is generally stronger than ERRNet on several 
 \method improves CEILNet table2 but does not generalize consistently to real benchmarks, highlighting the central challenge of reflection removal: synthetic priors are useful, but real glass reflections are more diverse than the simplified formation model.
 
 The submitted repository contains the training/evaluation code, reproducible result summaries, paper figures, and documentation for separately uploaded weights.
+The GitHub repository is available at \href{https://github.com/MarshCurrant/PG_DSRNet}{MarshCurrant/PG\_DSRNet}.
+The model weights are shared via Baidu Netdisk: \href{https://pan.baidu.com/s/151h3CPe1i1OpOMrLGYMfKA?pwd=1234}{DIP} (extraction code: 1234).
 Member contribution: TODO\_CONTRIBUTION.
+
+\appendix
+\section{AI Assistance Statement}
+
+OpenAI Codex was used as an AI assistant during this course project.
+Its assistance covered three main aspects.
+First, Codex helped read and organize the literature survey by summarizing reflection-removal methods, comparing ERRNet, DSRNet, PromptRR, FUMO, FIRM, and OpenRR-5k, and turning the survey notes into a structured related-work outline.
+Second, Codex helped build and debug the experimental pipeline, including dataset layout checks, inference wrappers, benchmark aggregation scripts, self-collected synthetic reflection generation, qualitative figure generation, and Markdown/LaTeX result tables.
+Third, Codex helped polish the paper language, improve LaTeX formatting, and refine the presentation of negative and mixed experimental findings.
+
+All model choices, experiment execution, result verification, and final interpretations were checked by the author.
+The quantitative numbers reported in this paper come from local benchmark scripts, saved logs, and generated summary files rather than from AI generation.
+Codex was therefore used as a research, coding, and writing assistant, while the responsibility for correctness, academic integrity, and final claims remains with the author.
 
 {
     \small

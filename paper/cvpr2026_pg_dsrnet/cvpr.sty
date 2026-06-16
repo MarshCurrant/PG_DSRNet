@@ -56,7 +56,10 @@
 \toggletrue{cvprfinal}
 \togglefalse{cvprrebuttal}
 \togglefalse{cvprpagenumbers}
-\DeclareOption{review}{\togglefalse{cvprfinal}\toggletrue{cvprpagenumbers}}
+\DeclareOption{final}{\toggletrue{cvprfinal}\togglefalse{cvprrebuttal}}
+% Course project submission is non-anonymous. Keep author names visible even
+% if the document accidentally passes the original CVPR "review" option.
+\DeclareOption{review}{\toggletrue{cvprfinal}\toggletrue{cvprpagenumbers}}
 \DeclareOption{rebuttal}{\togglefalse{cvprfinal}\toggletrue{cvprrebuttal}}
 \DeclareOption{pagenumbers}{\toggletrue{cvprpagenumbers}}
 \DeclareOption*{\PackageWarning{cvpr}{Unkown option `\CurrentOption'}}
@@ -291,11 +294,7 @@
           \iftoggle{cvprfinal}{
             \@author
           }{
-            \iftoggle{cvprrebuttal}{}{
-              Anonymous \confName~submission\\
-              \vspace*{1pt}\\
-              Paper ID \paperID
-            }
+            \@author
           }
         \end{tabular}
         \par
